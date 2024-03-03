@@ -14,7 +14,7 @@ fi
 
 SRC_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-THEME_NAME=WhiteSur
+THEME_NAME=Hatter
 COLOR_VARIANTS=('' '-light' '-dark')
 THEME_VARIANTS=('' '-purple' '-pink' '-red' '-orange' '-yellow' '-green' '-grey' '-nord')
 
@@ -28,8 +28,7 @@ cat << EOF
   OPTIONS:
     -d, --dest DIR          Specify destination directory (Default: $DEST_DIR)
     -n, --name NAME         Specify theme name (Default: $THEME_NAME)
-    -t, --theme VARIANT     Specify theme color variant(s) [default|purple|pink|red|orange|yellow|green|grey|nord|all] (Default: blue)
-    -a, --alternative       Install alternative icons for software center and file-manager
+    -t, --theme VARIANT     Specify theme color variant(s) [default|purple|pink|red|orange|yellow|green|grey|nord|all] (Default: blue)    
     -b, --bold              Install bolder panel icons version (1.5px size)
 
     -r, --remove,
@@ -73,10 +72,6 @@ install() {
 
     if [[ $DESKTOP_SESSION == '/usr/share/xsessions/budgie-desktop' ]]; then
       cp -r "${SRC_DIR}"/src/status/symbolic-budgie/*.svg                                    ${THEME_DIR}/status/symbolic
-    fi
-
-    if [[ ${alternative:-} == 'true' ]]; then
-      cp -r "${SRC_DIR}"/alternative/*                                                       ${THEME_DIR}
     fi
 
     if [[ ${theme} != '' ]]; then
@@ -127,10 +122,6 @@ install() {
 
     if [[ ${bold:-} == 'true' ]]; then
       cp -r "${SRC_DIR}"/bold/*                                                              ${THEME_DIR}
-    fi
-
-    if [[ ${alternative:-} == 'true' ]]; then
-      cp -r "${SRC_DIR}"/alternative/apps/symbolic/*.svg                                     ${THEME_DIR}/apps/symbolic
     fi
 
     if [[ $DESKTOP_SESSION == '/usr/share/xsessions/budgie-desktop' ]]; then
@@ -209,11 +200,6 @@ while [[ "$#" -gt 0 ]]; do
     -n|--name)
       name="${2}"
       shift 2
-      ;;
-    -a|--alternative)
-      alternative='true'
-      echo "Installing 'alternative' version..."
-      shift
       ;;
     -b|--bold)
       bold='true'
